@@ -1,0 +1,15 @@
+######################################################################
+#######    Ajuste Redirecionamento para: www. e https - SH2    #######
+######################################################################
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Sectigo\ DCV)?$
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+RewriteCond %{HTTP} off
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Sectigo\ DCV)?$
+RewriteRule ^(.*)$ http://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
